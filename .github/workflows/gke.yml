@@ -30,15 +30,15 @@ jobs:
       run: echo ::set-output name=tag::$(echo ${GITHUB_SHA:10})
     - name: Running deploy script
       run: |-
-        docker build -t aticozgur/multi-client:latest -t aticozgur/multi-client:${{steps.vars.outputs.tag}} -f ./client/Dockerfile ./client
-        docker build -t aticozgur/multi-server:latest -t aticozgur/multi-server:${{steps.vars.outputs.tag}} -f ./server/Dockerfile ./server
-        docker build -t aticozgur/multi-worker:latest -t aticozgur/multi-worker:${{steps.vars.outputs.tag}} -f ./worker/Dockerfile ./worker
-        docker push aticozgur/multi-client:latest
-        docker push aticozgur/multi-server:latest
-        docker push aticozgur/multi-worker:latest
-        docker push aticozgur/multi-client:${{steps.vars.outputs.tag}}
-        docker push aticozgur/multi-server:${{steps.vars.outputs.tag}}
-        docker push aticozgur/multi-worker:${{steps.vars.outputs.tag}}
+        docker build -t aticiozgur/multi-client:latest -t aticiozgur/multi-client:${{steps.vars.outputs.tag}} -f ./client/Dockerfile ./client
+        docker build -t aticiozgur/multi-server:latest -t aticiozgur/multi-server:${{steps.vars.outputs.tag}} -f ./server/Dockerfile ./server
+        docker build -t aticiozgur/multi-worker:latest -t aticiozgur/multi-worker:${{steps.vars.outputs.tag}} -f ./worker/Dockerfile ./worker
+        docker push aticiozgur/multi-client:latest
+        docker push aticiozgur/multi-server:latest
+        docker push aticiozgur/multi-worker:latest
+        docker push aticiozgur/multi-client:${{steps.vars.outputs.tag}}
+        docker push aticiozgur/multi-server:${{steps.vars.outputs.tag}}
+        docker push aticiozgur/multi-worker:${{steps.vars.outputs.tag}}
 
 
   setup-and-deploy:
@@ -66,7 +66,7 @@ jobs:
     - name: Deploy
       run: |-
         kubectl apply -f k8s/
-        kubectl set image deployments/server-deployment server=aticozgur/multi-server:${{steps.vars.outputs.tag}}
-        kubectl set image deployments/client-deployment client=aticozgur/multi-client:${{steps.vars.outputs.tag}}
-        kubectl set image deployments/worker-deployment worker=aticozgur/multi-worker:${{steps.vars.outputs.tag}}
+        kubectl set image deployments/server-deployment server=aticiozgur/multi-server:${{steps.vars.outputs.tag}}
+        kubectl set image deployments/client-deployment client=aticiozgur/multi-client:${{steps.vars.outputs.tag}}
+        kubectl set image deployments/worker-deployment worker=aticiozgur/multi-worker:${{steps.vars.outputs.tag}}
         kubectl get services -o wide
